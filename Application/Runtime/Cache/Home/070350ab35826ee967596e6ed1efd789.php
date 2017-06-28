@@ -8,7 +8,7 @@
     <script>
         function download(val1,val2)
         {
-            if (confirm("下载需要"+val2+"积分下载此文件吗？")){
+            if (confirm("下载此文件吗？")){
                 location.href="/stockbbs/index.php/Tie/download1?title="+val1;
                 return true;
             }else{

@@ -133,30 +133,30 @@ class TieController extends Controller {
         $title= I("get.title");
         $this->assign("title", $title);
         $Tie=M("tie");
-        $Down=M("download");
+        //$Down=M("download");
         $list = $Tie->where(array("title"=>$title))->find();
         $User=M("users");
         $list1 = $User->where(array("uid"=>$list['uid']))->find();//上传者信息
-        $list2 = $User->where(array("uname"=>session("name")))->find();//下载者信息
-        $a=$list['grade'];
-        $c=$list2['grade']-$a;
-        if($c>=0)//判断是否积分够
-        {
-            if($Down->where(array("lid"=>$list['lid']))->where(array("uid"=>$list2['uid']))->select())//判断是否下载过
-            {
-                $Tie->where(array("title"=>$title))->setInc('cishu',1);// 下载加1
-            }else{
-                $User->where(array("uid"=>$list['uid']))->setInc('grade',$a); // 上传用户的积分加$a
-                $User->where(array("uname"=>session("name")))->setDec('grade',$a); // 下载用户的积分减$a
-                $Tie->where(array("title"=>$title))->setInc('cishu',1); // 下载加1
-                $ar['lid'] = $list['lid'];
-                $ar['uid'] = $list2['uid'];
-                $Down->add($ar);//导入下载历史
-            }
-            $this->assign('title',$title);
-            $this->assign('list',$list);
-            $this->assign('list1',$list1);
-            $this->display();
+        // $list2 = $User->where(array("uname"=>session("name")))->find();//下载者信息
+        // $a=$list['grade'];
+        // $c=$list2['grade']-$a;
+        // if($c>=0)//判断是否积分够
+        // {
+            // if($Down->where(array("lid"=>$list['lid']))->where(array("uid"=>$list2['uid']))->select())//判断是否下载过
+            // {
+            //     $Tie->where(array("title"=>$title))->setInc('cishu',1);// 下载加1
+            // }else{
+            //     $User->where(array("uid"=>$list['uid']))->setInc('grade',$a); // 上传用户的积分加$a
+            //     $User->where(array("uname"=>session("name")))->setDec('grade',$a); // 下载用户的积分减$a
+            //     $Tie->where(array("title"=>$title))->setInc('cishu',1); // 下载加1
+            //     $ar['lid'] = $list['lid'];
+            //     $ar['uid'] = $list2['uid'];
+            //     $Down->add($ar);//导入下载历史
+            // }
+        $this->assign('title',$title);
+        $this->assign('list',$list);
+        $this->assign('list1',$list1);
+        $this->display();
         }else{
             echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
             echo '<script type="text/javascript">alert("积分不足！");window.history.back();</script>';

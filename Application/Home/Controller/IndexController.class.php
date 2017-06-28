@@ -42,26 +42,27 @@ class IndexController extends Controller {
         $this->assign('list',$list_u);
         //print_r($list_u);
         //$list1 =0;
-        $Stock = M("stock");
+        $Stock = M("topten");
         $slist = $Stock->select();
         $stocknum = $Stock->count('sid');
-        //echo "stocknum:";
-       // echo $stocknum;
-        for($i=0;$i<200;$i++)
-        {
-            $change = $this->getchange($slist[$i]['sid']);
-            $list11[$i]['change'] =  $change;
-            $list11[$i]['sid'] =  $slist[$i]['sid'];
-            $list11[$i]['sname'] =  $slist[$i]['sname'];
-        }
-        $list11 = $this->my_sort($list11,change);
-       // print_r($list11);
+       //  //echo "stocknum:";
+       // // echo $stocknum;
+       //  for($i=0;$i<200;$i++)
+       //  {
+       //      $change = $this->getchange($slist[$i]['sid']);
+       //      $list11[$i]['change'] =  $change;
+       //      $list11[$i]['sid'] =  $slist[$i]['sid'];
+       //      $list11[$i]['sname'] =  $slist[$i]['sname'];
+       //  }
+       //  $list11 = $this->my_sort($list11,change);
+       // // print_r($list11);
+        //print_r($slist);
         for($i=0;$i<10;$i++)
         {
 
-            $list1[$i]['change'] =  $list11[$i]['change']."%";
-            $list1[$i]['sid'] =  $list11[$i]['sid'];
-            $list1[$i]['sname'] =  $list11[$i]['sname'];
+            $list1[$i]['change'] =  $slist[$i]['changes']."%";
+            $list1[$i]['sid'] =  $slist[$i]['sid'];
+            $list1[$i]['sname'] =  $slist[$i]['sname'];
         }
         //print_r($list11);
         $this->assign('list1',$list1);
